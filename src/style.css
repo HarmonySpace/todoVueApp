@@ -35,7 +35,8 @@ body {
   font-size: 15px;
   border-radius: 10px;
   background-color: var(--bg2);
+  color: var(--bg);
 }
 .router-link-active {
-  background-color: var(--anc3);
+  background-color: var(--anc);
 }

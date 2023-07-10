@@ -90,6 +90,11 @@ input {
   font-size: 20px;
 }
 
+input[type="text"],
+textarea {
+  color: var(--fr3)
+}
+
 textarea {
   border-radius: 15px;
   padding: 20px 20px;
@@ -99,5 +104,22 @@ textarea {
 input:focus,
 textarea:focus {
   outline: 5px solid var(--anc);
+}
+
+button {
+  outline: none;
+  border: none;
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  background-color: var(--anc);
+  color: var(--bg2);
+  font-size: 1rem;
+  border-radius: 15px;
+  transition: 0.2s;
+}
+
+button:hover {
+  cursor: pointer;
+  padding: 1rem 3rem;
 }
 </style>

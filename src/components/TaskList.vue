@@ -5,13 +5,16 @@
     <li v-for="task in tasks" :key="task._id" @click="router.push(`/tasks/${task._id}`)">
       <h2>{{ task.title }}</h2>
       <p>{{ task.description }}</p>
+      <div class="delete">
+        <button @click="handkeDelete()">Delete</button>
+      </div>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { getTasks } from '../services/TaskService.ts'
+import { getTasks, deleteTask } from '../services/TaskService.ts'
 import { Task } from '../interfaces/Task'
 import { useRouter } from 'vue-router'
 import navBar from './NavBar.vue'
@@ -29,6 +32,15 @@ const loadTasks = async () => {
   tasks.value = res.data
   console.log(res)
 }
+
+const handkeDelete = async () => {
+  if (typeof router.currentRoute.value.params.id === 'string') {
+    const res = await deleteTask(router.currentRoute.value.params.id)
+    console.log(res)
+    router.push({ name: 'tasks' })
+  }
+}
+
 </script>
 
 <style scoped>
