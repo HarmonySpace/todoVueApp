@@ -3,22 +3,26 @@
   <h1>Task Details</h1>
   <form @submit.prevent="handleUpdate()">
     <label>Task</label>
-    <input type="text" placeholder="Write your task" v-model="currentTask.title">
+    <input :class="{ 'anError': emptyTitle, 'anSuccess': !emptyTitle }" type="text" placeholder="Write your task"
+      v-model="currentTask.title" @click="refreshTitle()">
     <label>Description</label>
-    <textarea rows="5" placeholder="Write a description" v-model="currentTask.description"></textarea>
+    <textarea :class="{ 'anError': emptyDescription, 'anSuccess': !emptyDescription }" rows="5"
+      placeholder="Write a description" v-model="currentTask.description" @click="refreshDescription()"></textarea>
+    <button class="delete" @click="router.push({ name: 'tasks' })">Cancel</button>
     <button>update</button>
-    <button @click="handkeDelete()">delete</button>
   </form>
 </template>
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { Task } from '../interfaces/Task'
-import { getTask, updateTask, deleteTask } from '../services/TaskService';
+import { getTask, updateTask } from '../services/TaskService';
 import navBar from './NavBar.vue'
 
 const router = useRouter()
 const currentTask = ref({} as Task)
+let emptyTitle = ref(false)
+let emptyDescription = ref(false)
 
 onMounted(() => {
   console.log('mounted')
@@ -35,18 +39,30 @@ const loadTask = async (id: string) => {
 }
 
 const handleUpdate = async () => {
-  if (typeof router.currentRoute.value.params.id === 'string') {
-    const res = await updateTask(router.currentRoute.value.params.id, currentTask.value)
-    console.log(res)
-    router.push({ name: 'tasks' })
+  if (!currentTask.value.title && !currentTask.value.description) {
+    console.log('no title and no description')
+    emptyTitle.value = true
+    emptyDescription.value = true
+  }
+  else if (!currentTask.value.title) {
+    console.log('no title')
+    emptyTitle.value = true
+  } else if (!currentTask.value.description) {
+    console.log('no description')
+    emptyDescription.value = true
+  } else {
+    if (typeof router.currentRoute.value.params.id === 'string') {
+      const res = await updateTask(router.currentRoute.value.params.id, currentTask.value)
+      console.log(res)
+      router.push({ name: 'tasks' })
+    }
   }
 }
-const handkeDelete = async () => {
-  if (typeof router.currentRoute.value.params.id === 'string') {
-    const res = await deleteTask(router.currentRoute.value.params.id)
-    console.log(res)
-    router.push({ name: 'tasks' })
-  }
+const refreshTitle = () => {
+  emptyTitle.value = false
+}
+const refreshDescription = () => {
+  emptyDescription.value = false
 }
 </script>
 
@@ -121,5 +137,17 @@ button {
 button:hover {
   cursor: pointer;
   padding: 1rem 3rem;
+}
+
+.delete {
+  background-color: var(--anc3);
+}
+
+.anError {
+  outline: 5px solid var(--anc3);
+}
+
+.anSuccess {
+  outline: none;
 }
 </style>
