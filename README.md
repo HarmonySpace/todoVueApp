@@ -1,17 +1,17 @@
 # Task to Task
 
-This is a Fullstack web page in vue js and nodejs. This project are used to begin in this web stack tecnologies, in this case, i use a web stack MEVN.
+This is a full-stack web page in Vue.js and Node.js. This project is used to begin in this web stack technologies, in this case, I use MEVN.
 
-> **Warning!** -> This is a personal project to test the web stack MEVN, this web page only use to see the básic funcionalities, this web dont have a security implementations.
+> **Warning!** -> This is a personal project to test the web stack MEVN, this web page is only used to see the basic functionalities, it doesn't have security implementations.
 
-## Tecnologies used
+## Technologies used
 
 ### MEVN
 
 - Node js
 - Express
-- Vue 3 (composition api) whit typeScript
-- Mongodb
+- Vue 3 (composition API) whit typescript
+- MongoDB
 
 ### Bundler
 
@@ -47,7 +47,7 @@ This is a Fullstack web page in vue js and nodejs. This project are used to begi
 
 ## Editor
 
-Vscode 1.80.0
+Vs Code 1.80.0
 
 ### Extentions
 
